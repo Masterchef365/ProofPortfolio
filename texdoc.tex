@@ -1,0 +1,142 @@
+\documentclass{article}
+\usepackage{amssymb}
+\usepackage{verbatim}
+
+\title{ Proof portfolio }
+\begin{document}
+\author{
+    Duncan Freeman \\ 933-135-442
+}
+
+\maketitle
+%\tableofcontents
+%\pagebreak
+
+\section{Multiplication and Sets}
+\newcommand{\mulset}[1]{ \left\{ #1 \middle| x \in \mathbb{Z} \right\} }
+
+Prove the folliwng inequality:
+\[ \mulset{6x} = \mulset{2x} \bigcap \mulset{3x} \]
+
+$\forall c \in \mathbb{Z} \left( 6c \in \mulset{2x} \land 6c \in \mulset{3x}\right)$. This is because $6c = (2)(3)c$, so any $6c$ can be summoned from $2c$ and $3c$.
+
+\smallskip
+
+Because 6 is \textit{only} divisible by 2 and 3, there are no numbers for which the intersection of $\mulset{2x}$ and $\mulset{3x}$ would not also be a multiple of 6.
+
+\smallskip
+
+Having shown both of the folliwng:
+\[ \mulset{6x} \subseteq \mulset{2x} \bigcap \mulset{3x} \]
+\[  \mulset{2x} \bigcap \mulset{3x} \subseteq \mulset{6x}  \]
+
+The original equality must be true.
+
+\section{Even/Odd}
+Prove that, for all integers $a$, $b$, and $c$, if $a + b + c$ is odd then either $a$, $b$, and $c$ are odd, or exactly one of $a$, $b$, or $c$ is odd.
+
+\medskip
+
+E = Even, O = Odd. Proof by exhaustion:
+
+\begin{center}
+    \begin{tabular}{ c c c c c c c c }
+        a & + & b & + & c & = && \\
+        \hline
+        E && E && E & = & E \\
+        E && E && O & = & O \\
+        E && O && E & = & O \\
+        E && O && O & = & E \\
+        O && E && E & = & O \\
+        O && E && O & = & E \\
+        O && O && E & = & E \\
+        O && O && O & = & O \\
+    \end{tabular}
+\end{center}
+
+\section{Induction}
+Prove that for all $n \geq 1$,
+\[
+    \frac{1}{1 \cdot 3} +
+    \frac{1}{3 \cdot 5} +
+    \ldots +
+    \frac{1}{(2n - 1)(2n + 1)} =
+    \frac{n}{2n + 1}
+\]
+
+\noindent Inductive hypothesis:
+\[
+    \sum^k_{i = 1} \frac{1}{(2i - 1)(2i + 1)} =
+    \frac{k}{2k + 1}
+\]
+
+\noindent Initial case $n = 1$:
+\[
+    \frac{1}{(2(1) - 1)(2(1) + 1)} =
+    \frac{1}{2(1)+1}
+\]
+
+\[
+    \frac{1}{(1)(3)} =
+    \frac{1}{3}
+\]
+
+\medskip
+
+\noindent Inductive step $n = k + 1$:
+\[
+    \sum^{k+1}_{i = 1} \frac{1}{(2i - 1)(2i + 1)} =
+    \frac{k+1}{2(k + 1) + 1}
+\]
+
+\[
+    \sum^{k}_{i = 1} \frac{1}{(2i - 1)(2i + 1)} +
+    \frac{1}{(2(k + 1) - 1)(2(k + 1) + 1)} =
+    \frac{k + 1}{2k + 3}
+\]
+
+\noindent Utilizing the I.H.:
+\[
+    \frac{k}{2k + 1} +
+    \frac{1}{(2k + 1)(2k + 3)} =
+    \frac{k + 1}{2k + 3}
+\]
+
+\[
+    \frac{k(2k + 3) + 1}{(2k + 3)(2k + 1)} =
+    \frac{(k + 1)(2k + 1)}{(2k + 3)(2k + 1)}
+\]
+
+\[
+    \frac{2k^2 + 3k + 1}{2k^2 + 3k + 1} =
+    \frac{(k + 1)(2k + 1)}{(2k + 3)(2k + 1)}
+\]
+
+True by induction.
+
+\section{Triangle}
+Suppose you have 4 colors to color the 3 edges of an equilateral triangle. How many ways can you color the triangle if two ways are considered the same if they differ by a rotation? Include a clear description of how you came to your number.
+
+\bigskip
+
+When choosing colors for the triangle edges, we have to avoid picking our first, second, and third colors such that a rotation makes the choices redundant. We must also consider that triangles completely composed of one color do not differ due to rotation.
+
+Picking our first color is trivial, it can be any of the $n$ colors in our set. The next, however, must avoid a collision with the first. Therefore (barring our $n$ one-color triangles) we avoid picking the color we picked first. Finally, the third color must be picked so that it does not collide with either the first or second pick. The set of pickable colors gets smaller each time we color an edge. The formula for the number of uniquely colored edges follows our logic:
+\[
+    n + \sum^n_{a = 1} \sum^n_{b = a} \sum^n_{c = a + 1} 1
+\]
+Calculating for $n = 4$ yields the number $24$. 
+
+\bigskip 
+\noindent The python version may make a little more sense:
+\begin{verbatim}
+def triangle(n):
+    for z in range(1, n+1):
+        yield (z, z, z)
+    for a in range(1, n+1):
+        for b in range(a, n+1):
+            for c in range(a+1, n+1):
+                yield (a, b, c)
+\end{verbatim}
+
+\end{document}
