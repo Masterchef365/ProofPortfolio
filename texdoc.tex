@@ -1,6 +1,8 @@
 \documentclass{article}
 \usepackage{amssymb}
+\usepackage{amsmath}
 \usepackage{verbatim}
+\usepackage{titling}
 
 \title{ Proof portfolio }
 \begin{document}
@@ -18,9 +20,9 @@
 Prove the folliwng inequality:
 \[ \mulset{6x} = \mulset{2x} \bigcap \mulset{3x} \]
 
-$\forall c \in \mathbb{Z} \left( 6c \in \mulset{2x} \land 6c \in \mulset{3x}\right)$. This is because $6c = (2)(3)c$, so any $6c$ can be summoned from $2c$ and $3c$.
+$\forall c \in \mathbb{Z} \left( 6c \in \mulset{2x} \land 6c \in \mulset{3x}\right)$. This is because $6c = (2)(3)c$, so any $6c$ can be formed from either $2c$ or $3c$.
 
-\smallskip
+\bigskip
 
 Because 6 is \textit{only} divisible by 2 and 3, there are no numbers for which the intersection of $\mulset{2x}$ and $\mulset{3x}$ would not also be a multiple of 6.
 
@@ -35,7 +37,7 @@ The original equality must be true.
 \section{Even/Odd}
 Prove that, for all integers $a$, $b$, and $c$, if $a + b + c$ is odd then either $a$, $b$, and $c$ are odd, or exactly one of $a$, $b$, or $c$ is odd.
 
-\medskip
+\bigskip
 
 E = Even, O = Odd. Proof by exhaustion:
 
@@ -63,6 +65,8 @@ Prove that for all $n \geq 1$,
     \frac{1}{(2n - 1)(2n + 1)} =
     \frac{n}{2n + 1}
 \]
+
+\bigskip
 
 \noindent Inductive hypothesis:
 \[
@@ -114,6 +118,8 @@ Prove that for all $n \geq 1$,
 
 True by induction.
 
+\pagebreak
+
 \section{Triangle}
 Suppose you have 4 colors to color the 3 edges of an equilateral triangle. How many ways can you color the triangle if two ways are considered the same if they differ by a rotation? Include a clear description of how you came to your number.
 
@@ -138,5 +144,52 @@ def triangle(n):
             for c in range(a+1, n+1):
                 yield (a, b, c)
 \end{verbatim}
+
+\pagebreak
+
+\maketitle
+
+\section{Circle graph}
+Recall that an $n$-cyclic graph $C_n$ has vertex set $V = \{1, 2, ..., n\}$ and edge set $E = \{\{k, k + 1\} | 1 \leq k \leq n - 1\} \cap \{\{n, 1\}\}$. Prove that $C_{2n}$ is bipartite. (Hint: How is parity (even/oddness) of adjacent vertices related?)
+
+\bigskip
+
+Each node must only share edges with nodes of opposite parity, so that there are two distinct, disjunct sets. In a cyclic graph with $n$ nodes, the final edge $\{n, 1\}$ is not exempt from this rule. Therefore, only edges $\{\{2n, 1\} | n \in \mathbb{Z}\}$ are valid and thus only cyclic graphs $C_{2n}$ are bipartite.
+
+\section{Pascal's Identity}
+Use induction and Pascal's identity to prove that, for $n \geq 2$,
+\[
+    \sum^n_{j = 2} \binom{j}{2} = \binom{n + 1}{3}
+\]
+
+\bigskip
+
+\noindent Initial case $n = 2$:
+\[
+    \sum^2_{j = 2} \binom{j}{2} = \binom{2 + 1}{3}
+\]
+\[
+    \binom{2}{2} = \binom{2 + 1}{3}
+\]
+
+\noindent Inductive step $n = k + 1$:
+\[
+    \sum^{k + 1}_{j = 2} \binom{j}{2} = \binom{k + 2}{3}
+\]
+\[
+    \sum^{k}_{j = 2} \binom{j}{2} + \binom{k + 1}{2} = \binom{k + 2}{3}
+\]
+
+\noindent Using Pascal's Identity:
+\[
+    \sum^{k}_{j = 2} \binom{j}{2} + \binom{k + 1}{2} = \binom{k + 1}{3} + \binom{k + 1}{2}
+\]
+
+\noindent Utilizing the I.H.:
+\[
+    \binom{k + 1}{3} + \binom{k + 1}{2} = \binom{k + 1}{3} + \binom{k + 1}{2}
+\]
+
+\noindent True by induction.
 
 \end{document}
